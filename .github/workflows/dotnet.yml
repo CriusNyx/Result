@@ -24,7 +24,7 @@ jobs:
       run: dotnet build --no-restore
     - uses: actions/upload-artifact@v4
       with: 
-        name: core
+        name: result
         path: ./Result/bin
     - uses: actions/upload-artifact@v4
       with:
@@ -41,7 +41,7 @@ jobs:
         dotnet-version: 8.0.x
     - uses: actions/download-artifact@v4
       with:
-        name: core
+        name: result
         path: ./Result/bin
     - uses: actions/download-artifact@v4
       with:
@@ -129,5 +129,5 @@ jobs:
     - uses: actions/download-artifact@v4
       with:
         name: nuget
-        path: ./core/bin
+        path: ./Result/bin
     - run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
