@@ -25,7 +25,7 @@ jobs:
     - uses: actions/upload-artifact@v4
       with: 
         name: core
-        path: ./core/bin
+        path: ./Result/bin
     - uses: actions/upload-artifact@v4
       with:
         name: tests
@@ -42,11 +42,11 @@ jobs:
     - uses: actions/download-artifact@v4
       with:
         name: core
-        path: ./core/bin
+        path: ./Result/bin
     - uses: actions/download-artifact@v4
       with:
         name: tests
-        path: ./tests/bin
+        path: ./Tests/bin
     - name: Test
       run: dotnet test --no-build --verbosity normal
   version:
@@ -61,8 +61,8 @@ jobs:
       shell: bash
       run: |
         # Get a project version from the *.csproj file
-        cat ./core/core.csproj
-        VERSION=$(grep -oPm1 "(?<=<Version>)[^<]+" ./core/core.csproj)
+        cat ./Result/Result.csproj
+        VERSION=$(grep -oPm1 "(?<=<Version>)[^<]+" ./Result/Result.csproj)
         echo "Test"
         echo "Project version in $VERSION"
         # Save the result into the variable VERSION
@@ -114,7 +114,7 @@ jobs:
     - uses: actions/upload-artifact@v4
       with:
         name: nuget
-        path: ./core/bin
+        path: ./Result/bin
   publishNugetPackage:
     name: Publish nuget package
     runs-on: ubuntu-latest
