@@ -333,4 +333,22 @@ public class ResultTests
     var actual = result.OrElse((_) => Result.Err<object, Exception>(expected));
     Assert.That(actual, Is.EqualTo(Result.Err<object, Exception>(expected)));
   }
+
+  [Test]
+  public void ImplicitOperator_Ok_Works()
+  {
+    var expected = new object();
+    Result<object, Exception> result = expected;
+    var actual = result.Unwrap();
+    Assert.That(expected, Is.EqualTo(actual));
+  }
+
+  [Test]
+  public void ImplicitOperator_Err_Works()
+  {
+    var expected = new Exception();
+    Result<object, Exception> result = expected;
+    var actual = result.Err().Unwrap();
+    Assert.That(expected, Is.EqualTo(actual));
+  }
 }

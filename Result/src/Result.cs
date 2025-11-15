@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 namespace CriusNyx.Results;
 
 public static class Result
@@ -320,5 +322,15 @@ public class Result<Value, Error>
   public override int GetHashCode()
   {
     return HashCode.Combine(isSuccess, value, error);
+  }
+
+  public static implicit operator Result<Value, Error>(Value value)
+  {
+    return Result.Ok<Value, Error>(value);
+  }
+
+  public static implicit operator Result<Value, Error>(Error error)
+  {
+    return Result.Err<Value, Error>(error);
   }
 }
