@@ -1,3 +1,5 @@
+using System.Security.Cryptography.X509Certificates;
+
 namespace CriusNyx.Results;
 
 public static class Option
@@ -92,6 +94,18 @@ public class Option<Value>
     }
     {
       return true;
+    }
+  }
+
+  /// <summary>
+  /// If the Option is Some(value), run the inspect action on the value
+  /// </summary>
+  /// <param name="inspect"></param>
+  public void Inspect(Action<Value> inspect)
+  {
+    if (hasValue)
+    {
+      inspect(value!);
     }
   }
 

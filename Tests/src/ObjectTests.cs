@@ -79,6 +79,24 @@ public class ObjectTests
   }
 
   [Test]
+  public void Inspect_Some_Works()
+  {
+    var (expected, option) = Some();
+    object? actual = null;
+    option.Inspect((value) => actual = value);
+    Assert.That(actual, Is.EqualTo(expected));
+  }
+
+  [Test]
+  public void Inspect_None_Works()
+  {
+    var option = None();
+    object? actual = null;
+    option.Inspect((value) => actual = value);
+    Assert.That(actual, Is.EqualTo(null));
+  }
+
+  [Test]
   public void Expect_Some_Works()
   {
     var (expected, option) = Some();

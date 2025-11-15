@@ -66,6 +66,30 @@ public class Result<Value, Error>
   }
 
   /// <summary>
+  /// If the result is Ok(value) run the inspect action on the value.
+  /// </summary>
+  /// <param name="inspect"></param>
+  public void Inspect(Action<Value> inspect)
+  {
+    if (isSuccess)
+    {
+      inspect(value!);
+    }
+  }
+
+  /// <summary>
+  /// If the result is Err(error) run the inspectErr action on the error;
+  /// </summary>
+  /// <param name="inspectErr"></param>
+  public void InspectErr(Action<Error> inspectErr)
+  {
+    if (!isSuccess)
+    {
+      inspectErr(error!);
+    }
+  }
+
+  /// <summary>
   /// Return the inner value or throw the provided exception.
   /// </summary>
   /// <param name="createException"></param>

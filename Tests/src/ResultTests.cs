@@ -31,6 +31,24 @@ public class ResultTests
   }
 
   [Test]
+  public void Inspect_Ok_Works()
+  {
+    var (expected, result) = Ok();
+    object? actual = null;
+    result.Inspect((x) => actual = x);
+    Assert.That(actual, Is.EqualTo(expected));
+  }
+
+  [Test]
+  public void Inspect_Err_Works()
+  {
+    var (_, result) = Err();
+    object? actual = null;
+    result.Inspect((x) => actual = x);
+    Assert.That(actual, Is.EqualTo(null));
+  }
+
+  [Test]
   public void Expect_Ok_Works()
   {
     var (expected, result) = Ok();
