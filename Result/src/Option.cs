@@ -324,6 +324,40 @@ public class Option<Value>
     return Option.None<Value>();
   }
 
+  public Value Insert(Value newValue)
+  {
+    hasValue = true;
+    value = newValue;
+    return value;
+  }
+
+  public Value GetOrInsert(Value newValue)
+  {
+    if (!hasValue)
+    {
+      return Insert(newValue);
+    }
+    return value!;
+  }
+
+  public Value GetOrInsertDefault()
+  {
+    if (!hasValue)
+    {
+      return Insert(default!);
+    }
+    return value!;
+  }
+
+  public Value GetOrInsertWith(Func<Value> newValueFunc)
+  {
+    if (!hasValue)
+    {
+      return Insert(newValueFunc());
+    }
+    return value!;
+  }
+
   public override bool Equals(object? obj)
   {
     return obj is Option<Value> option

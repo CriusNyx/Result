@@ -372,4 +372,80 @@ public class ObjectTests
     var actual = a.Xor(b);
     Assert.That(actual, Is.EqualTo(Option.None<object>()));
   }
+
+  [Test]
+  public void Insert_Some_Works()
+  {
+    var (_, option) = Some();
+    var expected = new object();
+    option.Insert(expected);
+    var actual = option.Unwrap();
+    Assert.That(actual, Is.EqualTo(expected));
+  }
+
+  [Test]
+  public void Insert_None_Works()
+  {
+    var option = None();
+    var expected = new object();
+    option.Insert(expected);
+    var actual = option.Unwrap();
+    Assert.That(actual, Is.EqualTo(expected));
+  }
+
+  [Test]
+  public void GetOrInsert_Some_Works()
+  {
+    var (expected, option) = Some();
+    option.GetOrInsert(new object());
+    var actual = option.Unwrap();
+    Assert.That(actual, Is.EqualTo(expected));
+  }
+
+  [Test]
+  public void GetOrInsert_None_Works()
+  {
+    var option = None();
+    var expected = new object();
+    option.GetOrInsert(expected);
+    var actual = option.Unwrap();
+    Assert.That(actual, Is.EqualTo(expected));
+  }
+
+  [Test]
+  public void GetOrInsertDefault_Some_Works()
+  {
+    var (expected, option) = Some();
+    option.GetOrInsertDefault();
+    var actual = option.Unwrap();
+    Assert.That(actual, Is.EqualTo(expected));
+  }
+
+  [Test]
+  public void GetOrInsertDefault_None_Works()
+  {
+    var option = None();
+    option.GetOrInsertDefault();
+    var actual = option.Unwrap();
+    Assert.That(actual, Is.EqualTo(null));
+  }
+
+  [Test]
+  public void GetOrInsertWith_Some_Works()
+  {
+    var (expected, option) = Some();
+    option.GetOrInsertWith(() => new object());
+    var actual = option.Unwrap();
+    Assert.That(actual, Is.EqualTo(expected));
+  }
+
+  [Test]
+  public void GetOrInsertWith_None_Works()
+  {
+    var option = None();
+    var expected = new object();
+    option.GetOrInsertWith(() => expected);
+    var actual = option.Unwrap();
+    Assert.That(actual, Is.EqualTo(expected));
+  }
 }
