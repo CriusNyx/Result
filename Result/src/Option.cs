@@ -324,6 +324,12 @@ public class Option<Value>
     return Option.None<Value>();
   }
 
+  /// <summary>
+  /// Insert a new value into the option.
+  /// Returns the current value of the option.
+  /// </summary>
+  /// <param name="newValue"></param>
+  /// <returns></returns>
   public Value Insert(Value newValue)
   {
     hasValue = true;
@@ -331,6 +337,12 @@ public class Option<Value>
     return value;
   }
 
+  /// <summary>
+  /// If the option doesn't have a value then insert the new value into the option.
+  /// Returns the current value of the option.
+  /// </summary>
+  /// <param name="newValue"></param>
+  /// <returns></returns>
   public Value GetOrInsert(Value newValue)
   {
     if (!hasValue)
@@ -340,15 +352,22 @@ public class Option<Value>
     return value!;
   }
 
+  /// <summary>
+  /// Gets or inserts a new value into the option.
+  /// Return the value of the option.
+  /// </summary>
+  /// <returns></returns>
   public Value GetOrInsertDefault()
   {
-    if (!hasValue)
-    {
-      return Insert(default!);
-    }
-    return value!;
+    return GetOrInsert(default!);
   }
 
+  /// <summary>
+  /// Get or insert a new value into the option.
+  /// Returns the value of the option.
+  /// </summary>
+  /// <param name="newValueFunc"></param>
+  /// <returns></returns>
   public Value GetOrInsertWith(Func<Value> newValueFunc)
   {
     if (!hasValue)

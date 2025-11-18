@@ -378,8 +378,7 @@ public class ObjectTests
   {
     var (_, option) = Some();
     var expected = new object();
-    option.Insert(expected);
-    var actual = option.Unwrap();
+    var actual = option.Insert(expected);
     Assert.That(actual, Is.EqualTo(expected));
   }
 
@@ -388,8 +387,8 @@ public class ObjectTests
   {
     var option = None();
     var expected = new object();
-    option.Insert(expected);
-    var actual = option.Unwrap();
+    var actual = option.Insert(expected);
+
     Assert.That(actual, Is.EqualTo(expected));
   }
 
@@ -397,8 +396,8 @@ public class ObjectTests
   public void GetOrInsert_Some_Works()
   {
     var (expected, option) = Some();
-    option.GetOrInsert(new object());
-    var actual = option.Unwrap();
+    var actual = option.GetOrInsert(new object());
+
     Assert.That(actual, Is.EqualTo(expected));
   }
 
@@ -407,8 +406,7 @@ public class ObjectTests
   {
     var option = None();
     var expected = new object();
-    option.GetOrInsert(expected);
-    var actual = option.Unwrap();
+    var actual = option.GetOrInsert(expected);
     Assert.That(actual, Is.EqualTo(expected));
   }
 
@@ -416,8 +414,7 @@ public class ObjectTests
   public void GetOrInsertDefault_Some_Works()
   {
     var (expected, option) = Some();
-    option.GetOrInsertDefault();
-    var actual = option.Unwrap();
+    var actual = option.GetOrInsertDefault();
     Assert.That(actual, Is.EqualTo(expected));
   }
 
@@ -425,8 +422,7 @@ public class ObjectTests
   public void GetOrInsertDefault_None_Works()
   {
     var option = None();
-    option.GetOrInsertDefault();
-    var actual = option.Unwrap();
+    var actual = option.GetOrInsertDefault();
     Assert.That(actual, Is.EqualTo(null));
   }
 
@@ -434,8 +430,7 @@ public class ObjectTests
   public void GetOrInsertWith_Some_Works()
   {
     var (expected, option) = Some();
-    option.GetOrInsertWith(() => new object());
-    var actual = option.Unwrap();
+    var actual = option.GetOrInsertWith(() => new object());
     Assert.That(actual, Is.EqualTo(expected));
   }
 
@@ -444,8 +439,7 @@ public class ObjectTests
   {
     var option = None();
     var expected = new object();
-    option.GetOrInsertWith(() => expected);
-    var actual = option.Unwrap();
+    var actual = option.GetOrInsertWith(() => expected);
     Assert.That(actual, Is.EqualTo(expected));
   }
 }
