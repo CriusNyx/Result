@@ -2,6 +2,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace CriusNyx.Results;
 
+/// <inheritdoc/>
 public static class Option
 {
   /// <summary>
@@ -377,6 +378,7 @@ public class Option<Value>
     return value!;
   }
 
+  /// <inheritdoc/>
   public override bool Equals(object? obj)
   {
     return obj is Option<Value> option
@@ -384,6 +386,7 @@ public class Option<Value>
       && EqualityComparer<Value?>.Default.Equals(value, option.value);
   }
 
+  /// <inheritdoc/>
   public override int GetHashCode()
   {
     return HashCode.Combine(hasValue, value);

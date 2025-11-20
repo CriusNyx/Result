@@ -20,4 +20,12 @@ public class OptionExtensionsTests
     var option = expected.AsOption();
     Assert.That(option, Is.EqualTo(Option.None<object>()));
   }
+
+  [Test]
+  public void WhereSome_Works()
+  {
+    Option<string>[] values = [Option.Some<string>("hello"), Option.None<string>()];
+    var someValues = values.WhereSome();
+    Assert.That(someValues, Is.EquivalentTo(new string[] { "hello" }));
+  }
 }
