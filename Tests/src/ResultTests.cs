@@ -35,7 +35,8 @@ public class ResultTests
   {
     var (expected, result) = Ok();
     object? actual = null;
-    result.Inspect((x) => actual = x);
+    var inspected = result.Inspect((x) => actual = x);
+    Assert.That(result, Is.EqualTo(inspected));
     Assert.That(actual, Is.EqualTo(expected));
   }
 
@@ -44,8 +45,29 @@ public class ResultTests
   {
     var (_, result) = Err();
     object? actual = null;
-    result.Inspect((x) => actual = x);
+    var inspected = result.Inspect((x) => actual = x);
+    Assert.That(result, Is.EqualTo(inspected));
     Assert.That(actual, Is.EqualTo(null));
+  }
+
+  [Test]
+  public void InspectErr_Ok_Works()
+  {
+    var (expected, result) = Ok();
+    object? actual = null;
+    var inspected = result.InspectErr((x) => actual = x);
+    Assert.That(result, Is.EqualTo(inspected));
+    Assert.That(actual, Is.EqualTo(null));
+  }
+
+  [Test]
+  public void InspectErr_Err_Works()
+  {
+    var (expected, result) = Err();
+    object? actual = null;
+    var inspected = result.InspectErr((x) => actual = x);
+    Assert.That(result, Is.EqualTo(inspected));
+    Assert.That(actual, Is.EqualTo(expected));
   }
 
   [Test]

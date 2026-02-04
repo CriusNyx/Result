@@ -2,6 +2,9 @@ using System.Runtime.CompilerServices;
 
 namespace CriusNyx.Results;
 
+/// <summary>
+/// Helper class to generate result values.
+/// </summary>
 public static class Result
 {
   /// <summary>
@@ -40,7 +43,13 @@ public class Result<Value, Error>
   Value? value;
   Error? error;
 
-  public Result(bool isSuccess, Value value, Error error)
+  /// <summary>
+  /// Create a new result.
+  /// </summary>
+  /// <param name="isSuccess"></param>
+  /// <param name="value"></param>
+  /// <param name="error"></param>
+  internal Result(bool isSuccess, Value value, Error error)
   {
     this.isSuccess = isSuccess;
     this.value = value;
@@ -69,24 +78,26 @@ public class Result<Value, Error>
   /// If the result is Ok(value) run the inspect action on the value.
   /// </summary>
   /// <param name="inspect"></param>
-  public void Inspect(Action<Value> inspect)
+  public Result<Value, Error> Inspect(Action<Value> inspect)
   {
     if (isSuccess)
     {
       inspect(value!);
     }
+    return this;
   }
 
   /// <summary>
   /// If the result is Err(error) run the inspectErr action on the error;
   /// </summary>
   /// <param name="inspectErr"></param>
-  public void InspectErr(Action<Error> inspectErr)
+  public Result<Value, Error> InspectErr(Action<Error> inspectErr)
   {
     if (!isSuccess)
     {
       inspectErr(error!);
     }
+    return this;
   }
 
   /// <summary>
@@ -335,6 +346,11 @@ public class Result<Value, Error>
     }
   }
 
+  /// <summary>
+  /// Compare results.
+  /// </summary>
+  /// <param name="obj"></param>
+  /// <returns></returns>
   public override bool Equals(object? obj)
   {
     return obj is Result<Value, Error> result
@@ -343,16 +359,28 @@ public class Result<Value, Error>
       && EqualityComparer<Error?>.Default.Equals(error, result.error);
   }
 
+  /// <summary>
+  /// Get result hash code.
+  /// </summary>
+  /// <returns></returns>
   public override int GetHashCode()
   {
     return HashCode.Combine(isSuccess, value, error);
   }
 
+  /// <summary>
+  /// Convert value to an Ok of the same type.
+  /// </summary>
+  /// <param name="value"></param>
   public static implicit operator Result<Value, Error>(Value value)
   {
     return Result.Ok<Value, Error>(value);
   }
 
+  /// <summary>
+  /// Convert value to an Err of the same type.
+  /// </summary>
+  /// <param name="error"></param>
   public static implicit operator Result<Value, Error>(Error error)
   {
     return Result.Err<Value, Error>(error);

@@ -1,4 +1,3 @@
-using System.Runtime;
 using CriusNyx.Results.Extensions;
 
 namespace CriusNyx.Results.Tests;
@@ -24,7 +23,7 @@ public class OptionExtensionsTests
   [Test]
   public void WhereSome_Works()
   {
-    Option<string>[] values = [Option.Some<string>("hello"), Option.None<string>()];
+    Option<string>[] values = [Option.Some("hello"), Option.None<string>()];
     var someValues = values.WhereSome();
     Assert.That(someValues, Is.EquivalentTo(new string[] { "hello" }));
   }
