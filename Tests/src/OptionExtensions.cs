@@ -27,4 +27,18 @@ public class OptionExtensionsTests
     var someValues = values.WhereSome();
     Assert.That(someValues, Is.EquivalentTo(new string[] { "hello" }));
   }
+
+  [Test]
+  public void UnwrapOrNull_Value_Works()
+  {
+    Option<int> opt = Option.Some(1);
+    Assert.That(opt.UnwrapOrNull(), Is.EqualTo(1));
+  }
+
+  [Test]
+  public void UnwrapOrNull_Null_Works()
+  {
+    Option<int> opt = Option.None();
+    Assert.That(opt.UnwrapOrNull(), Is.Null);
+  }
 }

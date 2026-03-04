@@ -30,4 +30,20 @@ public static class OptionExtensions
   {
     return options.Where(x => x.IsSome()).Select(x => x.Unwrap());
   }
+
+  /// <summary>
+  /// Unwrap a struct value, or return a null boxed struct.
+  /// </summary>
+  /// <typeparam name="Value"></typeparam>
+  /// <param name="option"></param>
+  /// <returns></returns>
+  public static Value? UnwrapOrNull<Value>(this Option<Value> option)
+    where Value : struct
+  {
+    if (option.IsSome())
+    {
+      return option.Unwrap();
+    }
+    return null;
+  }
 }
