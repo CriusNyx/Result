@@ -76,6 +76,40 @@ public static class Result
   {
     return new Result<Value, Error>(false, default!, error);
   }
+
+  /// <summary>
+  /// Returns an okay result if value is defined. Otherwise an error.
+  /// </summary>
+  /// <typeparam name="Value"></typeparam>
+  /// <typeparam name="Error"></typeparam>
+  /// <param name="value"></param>
+  /// <param name="error"></param>
+  /// <returns></returns>
+  public static Result<Value, Error> NotNull<Value, Error>(Value? value, Error error)
+    where Value : class
+  {
+    if (value == null)
+    {
+      return Err<Value, Error>(error);
+    }
+    return Ok<Value, Error>(value);
+  }
+
+  /// <summary>
+  /// Returns an okay result if value is defined. Otherwise return an null reference exception.
+  /// </summary>
+  /// <typeparam name="Value"></typeparam>
+  /// <param name="value"></param>
+  /// <returns></returns>
+  public static Result<Value, Exception> NotNull<Value>(Value? value)
+    where Value : class
+  {
+    if (value == null)
+    {
+      return Err<Value, Exception>(new NullReferenceException());
+    }
+    return Ok<Value, Exception>(value);
+  }
 }
 
 /// <summary>

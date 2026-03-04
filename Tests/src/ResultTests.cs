@@ -61,6 +61,35 @@ public class ResultTests
   }
 
   [Test]
+  public void NotNull_Value_Works()
+  {
+    var result = Result.NotNull("Hello World!");
+    Assert.That(result.Unwrap(), Is.EqualTo("Hello World!"));
+  }
+
+  [Test]
+  public void NotNull_Value_WithException_Works()
+  {
+    var result = Result.NotNull<string, Exception>("Hello World!", new Exception());
+    Assert.That(result.Unwrap(), Is.EqualTo("Hello World!"));
+  }
+
+  [Test]
+  public void NotNull_Null_Works()
+  {
+    var result = Result.NotNull<string>(null);
+    Assert.That(result.UnwrapErr(), Is.TypeOf(typeof(NullReferenceException)));
+  }
+
+  [Test]
+  public void NotNull_Null_WithException_Works()
+  {
+    var exception = new Exception();
+    var result = Result.NotNull<string, Exception>(null, exception);
+    Assert.That(result.UnwrapErr(), Is.EqualTo(exception));
+  }
+
+  [Test]
   public void Inspect_Ok_Works()
   {
     var (expected, result) = Ok();

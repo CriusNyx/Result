@@ -40,6 +40,22 @@ public static class Option
   {
     return new None();
   }
+
+  /// <summary>
+  /// Converts a nullable value into an option.
+  /// </summary>
+  /// <typeparam name="Value"></typeparam>
+  /// <param name="value"></param>
+  /// <returns></returns>
+  public static Option<Value> FromNull<Value>(Value? value)
+    where Value : class
+  {
+    if (value == null)
+    {
+      return None<Value>();
+    }
+    return Some(value);
+  }
 }
 
 /// <summary>

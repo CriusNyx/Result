@@ -45,6 +45,20 @@ public class ObjectTests
   }
 
   [Test]
+  public void FromNull_NotNull_Works()
+  {
+    Option<string> opt = Option.FromNull("Hello World!");
+    Assert.That(opt.Unwrap(), Is.EqualTo("Hello World!"));
+  }
+
+  [Test]
+  public void FromNull_Null_Works()
+  {
+    Option<string> opt = Option.FromNull<string>(null);
+    Assert.That(opt.IsNone());
+  }
+
+  [Test]
   public void IsSomeAnd_True_Works()
   {
     var (_, option) = Some();
