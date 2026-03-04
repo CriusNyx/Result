@@ -31,6 +31,36 @@ public class ResultTests
   }
 
   [Test]
+  public void CanAutoCast_Okay()
+  {
+    Result<string, Exception> result = "Hello World!";
+    Assert.That(result.Unwrap(), Is.EqualTo("Hello World!"));
+  }
+
+  [Test]
+  public void CanImplicitlyCreate_Okay()
+  {
+    Result<string, Exception> result = Result.Ok("Hello World!");
+    Assert.That(result.Unwrap(), Is.EqualTo("Hello World!"));
+  }
+
+  [Test]
+  public void CanAutoCast_Err()
+  {
+    var exception = new Exception();
+    Result<string, Exception> result = exception;
+    Assert.That(result.UnwrapErr(), Is.EqualTo(exception));
+  }
+
+  [Test]
+  public void CanImplicitlyCreate_Err()
+  {
+    var exception = new Exception();
+    Result<string, Exception> result = Result.Err(exception);
+    Assert.That(result.UnwrapErr(), Is.EqualTo(exception));
+  }
+
+  [Test]
   public void Inspect_Ok_Works()
   {
     var (expected, result) = Ok();
@@ -149,6 +179,13 @@ public class ResultTests
     var expected = new object();
     var actual = result.UnwrapOrElse((e) => expected);
     Assert.That(actual, Is.EqualTo(expected));
+  }
+
+  [Test]
+  public void UnwrapErr_Works()
+  {
+    var (err, result) = Err();
+    Assert.That(result.UnwrapErr(), Is.EqualTo(err));
   }
 
   [Test]

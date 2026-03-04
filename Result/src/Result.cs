@@ -1,6 +1,30 @@
-using System.Runtime.CompilerServices;
-
 namespace CriusNyx.Results;
+
+/// <summary>
+/// Contains an okay value.
+/// </summary>
+/// <typeparam name="Value"></typeparam>
+/// <param name="_value"></param>
+public class Ok<Value>(Value _value)
+{
+  /// <summary>
+  /// Okay value.
+  /// </summary>
+  public Value value => _value;
+}
+
+/// <summary>
+/// Contains an error value.
+/// </summary>
+/// <typeparam name="Error"></typeparam>
+/// <param name="_error"></param>
+public class Err<Error>(Error _error)
+{
+  /// <summary>
+  /// Error value.
+  /// </summary>
+  public Error error => _error;
+}
 
 /// <summary>
 /// Helper class to generate result values.
@@ -17,6 +41,28 @@ public static class Result
   public static Result<Value, Error> Ok<Value, Error>(Value value)
   {
     return new Result<Value, Error>(true, value, default!);
+  }
+
+  /// <summary>
+  /// Create a result with a value.
+  /// </summary>
+  /// <typeparam name="Value"></typeparam>
+  /// <param name="value"></param>
+  /// <returns></returns>
+  public static Ok<Value> Ok<Value>(Value value)
+  {
+    return new Ok<Value>(value);
+  }
+
+  /// <summary>
+  /// Create a result with an error.
+  /// </summary>
+  /// <typeparam name="Value"></typeparam>
+  /// <param name="value"></param>
+  /// <returns></returns>
+  public static Err<Value> Err<Value>(Value value)
+  {
+    return new Err<Value>(value);
   }
 
   /// <summary>
@@ -172,6 +218,23 @@ public class Result<Value, Error>
     else
     {
       return elseFunc(error!);
+    }
+  }
+
+  /// <summary>
+  /// Unwrap the error result.
+  /// </summary>
+  /// <returns></returns>
+  /// <exception cref="InvalidOperationException"></exception>
+  public Error UnwrapErr()
+  {
+    if (!isSuccess)
+    {
+      return error!;
+    }
+    else
+    {
+      throw new InvalidOperationException("Attempted to unwrap an error on a successful result.");
     }
   }
 
@@ -366,6 +429,24 @@ public class Result<Value, Error>
   public override int GetHashCode()
   {
     return HashCode.Combine(isSuccess, value, error);
+  }
+
+  /// <summary>
+  /// Implicitly convert an okay to a result.
+  /// </summary>
+  /// <param name="ok"></param>
+  public static implicit operator Result<Value, Error>(Ok<Value> ok)
+  {
+    return Result.Ok<Value, Error>(ok.value);
+  }
+
+  /// <summary>
+  /// Implicitly convert an error to a result.
+  /// </summary>
+  /// <param name="err"></param>
+  public static implicit operator Result<Value, Error>(Err<Error> err)
+  {
+    return Result.Err<Value, Error>(err.error);
   }
 
   /// <summary>

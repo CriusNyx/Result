@@ -2,6 +2,12 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace CriusNyx.Results;
 
+/// <summary>
+/// Represents a none option.
+/// You should use Option.None instead.
+/// </summary>
+public class None { }
+
 /// <inheritdoc/>
 public static class Option
 {
@@ -24,6 +30,15 @@ public static class Option
   public static Option<Value> None<Value>()
   {
     return new Option<Value>(false, default);
+  }
+
+  /// <summary>
+  /// An option without a value.
+  /// </summary>
+  /// <returns></returns>
+  public static None None()
+  {
+    return new None();
   }
 }
 
@@ -390,5 +405,23 @@ public class Option<Value>
   public override int GetHashCode()
   {
     return HashCode.Combine(hasValue, value);
+  }
+
+  /// <summary>
+  /// Implicitly convert a value to some.
+  /// </summary>
+  /// <param name="value"></param>
+  public static implicit operator Option<Value>(Value value)
+  {
+    return Option.Some(value);
+  }
+
+  /// <summary>
+  /// Implicitly convert none to option.
+  /// </summary>
+  /// <param name="none"></param>
+  public static implicit operator Option<Value>(None none)
+  {
+    return Option.None<Value>();
   }
 }

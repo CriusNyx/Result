@@ -31,6 +31,20 @@ public class ObjectTests
   }
 
   [Test]
+  public void CanAutoCastValue()
+  {
+    Option<string> opt = "Hello World!";
+    Assert.That(opt.Unwrap(), Is.EqualTo("Hello World!"));
+  }
+
+  [Test]
+  public void CanCreateImplicitNone()
+  {
+    Option<string> opt = Option.None();
+    Assert.That(opt.IsNone());
+  }
+
+  [Test]
   public void IsSomeAnd_True_Works()
   {
     var (_, option) = Some();
