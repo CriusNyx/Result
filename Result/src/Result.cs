@@ -443,6 +443,19 @@ public class Result<Value, Error>
     }
   }
 
+  /// <inheritdoc/>
+  public override string ToString()
+  {
+    if (isSuccess)
+    {
+      return $"Ok({value})";
+    }
+    else
+    {
+      return $"Err({error})";
+    }
+  }
+
   /// <summary>
   /// Compare results.
   /// </summary>

@@ -410,6 +410,16 @@ public class Option<Value>
   }
 
   /// <inheritdoc/>
+  public override string ToString()
+  {
+    if (hasValue)
+    {
+      return $"Some({hasValue})";
+    }
+    return "None";
+  }
+
+  /// <inheritdoc/>
   public override bool Equals(object? obj)
   {
     return obj is Option<Value> option
