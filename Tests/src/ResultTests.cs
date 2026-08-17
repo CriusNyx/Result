@@ -1,3 +1,5 @@
+using CriusNyx.Results.Extensions;
+
 namespace CriusNyx.Results.Tests;
 
 public class ResultTests
@@ -33,7 +35,7 @@ public class ResultTests
   [Test]
   public void CanAutoCast_Okay()
   {
-    Result<string, Exception> result = "Hello World!";
+    Result<string, Exception> result = "Hello World!".AsOk();
     Assert.That(result.Unwrap(), Is.EqualTo("Hello World!"));
   }
 
@@ -48,7 +50,7 @@ public class ResultTests
   public void CanAutoCast_Err()
   {
     var exception = new Exception();
-    Result<string, Exception> result = exception;
+    Result<string, Exception> result = exception.AsErr();
     Assert.That(result.UnwrapErr(), Is.EqualTo(exception));
   }
 
@@ -440,21 +442,21 @@ public class ResultTests
     Assert.That(actual, Is.EqualTo(Result.Err<object, Exception>(expected)));
   }
 
-  [Test]
-  public void ImplicitOperator_Ok_Works()
-  {
-    var expected = new object();
-    Result<object, Exception> result = expected;
-    var actual = result.Unwrap();
-    Assert.That(expected, Is.EqualTo(actual));
-  }
+  // [Test]
+  // public void ImplicitOperator_Ok_Works()
+  // {
+  //   var expected = new object();
+  //   Result<object, Exception> result = expected;
+  //   var actual = result.Unwrap();
+  //   Assert.That(expected, Is.EqualTo(actual));
+  // }
 
-  [Test]
-  public void ImplicitOperator_Err_Works()
-  {
-    var expected = new Exception();
-    Result<object, Exception> result = expected;
-    var actual = result.Err().Unwrap();
-    Assert.That(expected, Is.EqualTo(actual));
-  }
+  // [Test]
+  // public void ImplicitOperator_Err_Works()
+  // {
+  //   var expected = new Exception();
+  //   Result<object, Exception> result = expected;
+  //   var actual = result.Err().Unwrap();
+  //   Assert.That(expected, Is.EqualTo(actual));
+  // }
 }

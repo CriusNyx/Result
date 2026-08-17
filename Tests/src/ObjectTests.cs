@@ -1,3 +1,4 @@
+using CriusNyx.Results.Extensions;
 using Microsoft.VisualBasic;
 
 namespace CriusNyx.Results.Tests;
@@ -33,7 +34,7 @@ public class ObjectTests
   [Test]
   public void CanAutoCastValue()
   {
-    Option<string> opt = "Hello World!";
+    Option<string> opt = "Hello World!".AsOption();
     Assert.That(opt.Unwrap(), Is.EqualTo("Hello World!"));
   }
 

@@ -21,6 +21,17 @@ public static class OptionExtensions
   }
 
   /// <summary>
+  /// Returns Some(value).
+  /// </summary>
+  /// <typeparam name="T"></typeparam>
+  /// <param name="value"></param>
+  /// <returns></returns>
+  public static Option<T> AsSome<T>(this T? value)
+  {
+    return Option.Some(value)!;
+  }
+
+  /// <summary>
   /// Return all options that are some.
   /// </summary>
   /// <typeparam name="T"></typeparam>

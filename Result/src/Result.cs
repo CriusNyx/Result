@@ -496,21 +496,22 @@ public class Result<Value, Error>
     return Result.Err<Value, Error>(err.error);
   }
 
-  /// <summary>
-  /// Convert value to an Ok of the same type.
-  /// </summary>
-  /// <param name="value"></param>
-  public static implicit operator Result<Value, Error>(Value value)
-  {
-    return Result.Ok<Value, Error>(value);
-  }
+  // TODO: Publish alternate package with these enabled.
+  // /// <summary>
+  // /// Convert value to an Ok of the same type.
+  // /// </summary>
+  // /// <param name="value"></param>
+  // public static implicit operator Result<Value, Error>(Value value)
+  // {
+  //   return Result.Ok<Value, Error>(value);
+  // }
 
-  /// <summary>
-  /// Convert value to an Err of the same type.
-  /// </summary>
-  /// <param name="error"></param>
-  public static implicit operator Result<Value, Error>(Error error)
-  {
-    return Result.Err<Value, Error>(error);
-  }
+  // /// <summary>
+  // /// Convert value to an Err of the same type.
+  // /// </summary>
+  // /// <param name="error"></param>
+  // public static implicit operator Result<Value, Error>(Error error)
+  // {
+  //   return Result.Err<Value, Error>(error);
+  // }
 }

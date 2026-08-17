@@ -433,14 +433,15 @@ public class Option<Value>
     return HashCode.Combine(hasValue, value);
   }
 
-  /// <summary>
-  /// Implicitly convert a value to some.
-  /// </summary>
-  /// <param name="value"></param>
-  public static implicit operator Option<Value>(Value value)
-  {
-    return Option.Some(value);
-  }
+  // TODO: Publish alternate package with these enabled.
+  // /// <summary>
+  // /// Implicitly convert a value to some.
+  // /// </summary>
+  // /// <param name="value"></param>
+  // public static implicit operator Option<Value>(Value value)
+  // {
+  //   return Option.Some(value);
+  // }
 
   /// <summary>
   /// Implicitly convert none to option.
